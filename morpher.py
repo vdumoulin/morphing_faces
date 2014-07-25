@@ -36,12 +36,19 @@ class Morpher(object):
         self.Z = self._sample_Z()
 
         # Model parameters
-        self.W_2 = numpy.load('data/W_2.npy')
-        self.b_2 = numpy.load('data/b_2.npy')
-        self.W_1 = numpy.load('data/W_1.npy')
-        self.b_1 = numpy.load('data/b_1.npy')
-        self.W_0 = numpy.load('data/W_0.npy')
-        self.b_0 = numpy.load('data/b_0.npy')
+        self.d_W_2 = numpy.load('data/d_W_2.npy')
+        self.d_b_2 = numpy.load('data/d_b_2.npy')
+        self.d_W_1 = numpy.load('data/d_W_1.npy')
+        self.d_b_1 = numpy.load('data/d_b_1.npy')
+        self.d_W_0 = numpy.load('data/d_W_0.npy')
+        self.d_b_0 = numpy.load('data/d_b_0.npy')
+
+        self.e_W_2 = numpy.load('data/e_W_2.npy')
+        self.e_b_2 = numpy.load('data/e_b_2.npy')
+        self.e_W_1 = numpy.load('data/e_W_1.npy')
+        self.e_b_1 = numpy.load('data/e_b_1.npy')
+        self.e_W_0 = numpy.load('data/e_W_0.npy')
+        self.e_b_0 = numpy.load('data/e_b_0.npy')
 
     def toggle_freeze(self):
         """
@@ -97,13 +104,32 @@ class Morpher(object):
         """
         Maps the point Z in latent space to a 48 x 48 pixels face image
         """
-        A_2 = numpy.dot(self.Z, self.W_2) + self.b_2
+        A_2 = numpy.dot(self.Z, self.d_W_2) + self.d_b_2
         H_2 = numpy.where(A_2 > 0.0, A_2, 0.0 * A_2)
 
-        A_1 = numpy.dot(H_2, self.W_1) + self.b_1
+        A_1 = numpy.dot(H_2, self.d_W_1) + self.d_b_1
         H_1 = numpy.where(A_1 > 0.0, A_1, 0.0 * A_1)
 
-        A_0 = numpy.dot(H_1, self.W_0) + self.b_0
+        A_0 = numpy.dot(H_1, self.d_W_0) + self.d_b_0
         X = 1.0 / (1.0 + numpy.exp(-A_0))
 
         return X.reshape(self.image_shape)
+
+    def infer_Z(self, X):
+        """
+        Maps an 48 x 48 face image to its representation Z in latent space
+
+        Parameters
+        ----------
+        X : numpy.array
+            Array of shape (2304, ) or (48, 48) representing the face image
+        """
+        A_1 = numpy.dot(X, self.e_W_0) + self.e_b_0
+        H_1 = numpy.where(A_1 > 0.0, A_1, 0.0 * A_1)
+
+        A_2 = numpy.dot(H_1, self.e_W_1) + self.d_b_1
+        H_2 = numpy.where(A_2 > 0.0, A_2, 0.0 * A_2)
+
+        Z = numpy.dot(H_2, self.e_W_2) + self.e_b_2
+
+        return Z
