@@ -97,6 +97,28 @@ More formally, we are searching \\( \\theta^* \\) such that
 This parameter search can be done by various ways, for instance by gradient
 descent.
 
+This problem is straightforward if all variables are observed. Unfortunately,
+this is not always the case. Suppose that in the example presented earlier only
+\\( C \\) and \\( D \\) are observed, and the value of \\( A \\) and \\( B \\)
+is always unknown. In that case, all we're really interested in is to maximize
+the likelihood of \\( C \\) and \\( D \\) under the model, i.e. maximize
+
+\\[
+    P(C=c, D=d) = \\sum\_{a}\\sum\_{b} P(A=a, B=b, C=c, D=d)
+\\]
+
+Now things get hairy. What if \\( A \\) and \\( B \\) can take a great number of
+values? What if, instead of the toy example presented above, the bayesian
+network contains thousands of nodes with only a dozen of them that are observed?
+The summation quickly becomes _untractable_, and this does not bode well: how
+can you maximize a quantity you cannot even evaluate?
+
+One way out of this, which is oftentimes used in practice, is a technique known
+as [expectation-maximization](http://en.wikipedia.org/wiki/Expectation-maximization_algorithm).
+It assumes that the conditional distribution of the hidden variables given the
+observed variables is easy to compute, and unfortunately for us, this is not
+always the case. What can we do, then?
+
 ## Variational autoencoders
 
 First introduced by [(Kingma and Welling, 2014)](http://arxiv.org/abs/1312.6114)
