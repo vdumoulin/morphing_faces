@@ -63,7 +63,7 @@ graph.
 
 This concept is better illustrated by an example:
 
-![An example Bayesian network]({{ site.github.url }}/images/bayesian_network_example.png)
+![An example Bayesian network](images/bayesian_network_example.png)
 
 Here, \\( A\\) has no parents, \\( B \\)'s parent is \\( A\\), \\( C \\)'s
 parent is \\( A\\) and \\( D \\)'s parents are \\( A \\) and \\( B \\). The
