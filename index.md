@@ -31,8 +31,8 @@ __[TODO: finish explanation]__
 
 In addition to Python, Morphing Faces depends on the following Python packages:
 
-* [numpy](www.numpy.org/)
-* [matplotlib](matplotlib.org/)
+* [numpy](http://www.numpy.org/)
+* [matplotlib](http://matplotlib.org/)
 
 ## Running the demo
 
