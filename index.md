@@ -32,6 +32,16 @@ from within the `morphing_faces` directory.
 
 # How does it work?
 
+This section supposes a background in probabilities and recapitulates basic
+concepts of probabilistic graphical models before introducing variational
+autoencoders. For a (much) more thorough treatment of probabilistic graphical
+models, see the excellent
+[Probabilistic Graphical Models - Principles and Techniques](http://pgm.stanford.edu/)
+textbook written by Daphne Koller and Nir Friedman. The introductory material
+assumes that all variables are discrete for the sake of simplicity, although
+everything discussed also applies for continuous variables if sums are replaced
+by integrals where appropriate.
+
 ## Probabilistic graphical models and Bayesian networks
 
 A probabilistic graphical model is a way to encode a distribution over random
@@ -50,6 +60,19 @@ distributions they encode are of the form
 
 where \\( \\mathcal{Pa}(X_i) \\) is the set of \\( X_i \\)'s parents in the
 graph.
+
+This concept is better illustrated by an example:
+
+![An example Bayesian network]({{ site.url }}/images/bayesian_network_example.png)
+
+Here, \\( A\\) has no parents, \\( B \\)'s parent is \\( A\\), \\( C \\)'s
+parent is \\( A\\) and \\( D \\)'s parents are \\( A \\) and \\( B \\). The
+probability distribution encoded by this graph is therefore
+
+\\[
+    P(A=a, B=b, C=c, D=d) = P(A=a) P(B=b \\mid A=a) P(C=c \\mid A=a)
+                            P(D=d \\mid A=a, B=b)
+\\]
 
 ## Variational autoencoders
 
