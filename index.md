@@ -7,6 +7,25 @@ layout: default
 Morphing Faces is an interactive Python demo allowing to generate images of
 faces using a trained variational autoencoder.
 
+# Installation
+
+## Dependencies
+
+In addition to Python, Morphing Faces depends on the following Python packages:
+
+* [numpy](http://www.numpy.org/)
+* [matplotlib](http://matplotlib.org/)
+
+## Running the demo
+
+To run the demo, simply download the code and type
+
+```
+python visualize.py
+```
+
+from within the `morphing_faces` directory.
+
 # How does it work?
 
 ## Variational autoencoders
@@ -38,22 +57,3 @@ __[TODO: finish explanation]__
   \\]
 * Trained on the unlabel set of images of the
   [Toronto Face Database](http://aclab.ca/users/josh/TFD.html)
-
-# Installation
-
-## Dependencies
-
-In addition to Python, Morphing Faces depends on the following Python packages:
-
-* [numpy](http://www.numpy.org/)
-* [matplotlib](http://matplotlib.org/)
-
-## Running the demo
-
-To run the demo, simply download the code and type
-
-```
-python visualize.py
-```
-
-from within the `morphing_faces` directory.
