@@ -90,8 +90,6 @@ More formally, we are searching \\( \\theta^* \\) such that
 
 \\[
     \\theta^* = \\arg\\max_{\\theta} \\log P(X_1, \\cdots, X_n)
-              =  \\arg\\max_{\\theta} \\sum_{i=1}^n
-                 \\log P(X_i \\mid \\mathcal{Pa}(X_i))
 \\]
 
 This parameter search can be done by various ways, for instance by gradient
