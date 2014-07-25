@@ -7,6 +7,10 @@ layout: default
 Morphing Faces is an interactive Python demo allowing to generate images of
 faces using a trained variational autoencoder.
 
+The program maps a point in 400-dimensional space to an image and displays it on
+screen. The point's position is initialized at random, and its coordinates can
+be varied two dimensions at a time by hovering the mouse over the image.
+
 # Installation
 
 ## Dependencies
@@ -27,6 +31,25 @@ python visualize.py
 from within the `morphing_faces` directory.
 
 # How does it work?
+
+## Probabilistic graphical models and Bayesian networks
+
+A probabilistic graphical model is a way to encode a distribution over random
+variables as a graph, which can potentially yield a very compact representation
+compared to a regular probability table. It does so by encoding dependences
+between variables as edges between nodes.
+
+Bayesian networks are a category of probabilistic graphical models whose
+graphical representations are directed acyclic graphs (DAGs). The probability
+distributions they encode are of the form
+
+\\[
+    P(X_1=x_1, X_2=x_2, \\cdots, X_n=x_n) = \\prod_{i=1}^n
+        P(X_i=x_i \\mid \\mathcal{Pa}(X_i))
+\\]
+
+where \\( \\mathcal{Pa}(X_i) \\) is the set of \\( X_i \\)'s parents in the
+graph.
 
 ## Variational autoencoders
 
