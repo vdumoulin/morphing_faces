@@ -109,7 +109,7 @@ the likelihood of \\( C \\) and \\( D \\) under the model, i.e. maximize
 
 Now things get hairy. What if \\( A \\) and \\( B \\) can take a great number of
 values? What if, instead of the toy example presented above, the bayesian
-network contains thousands of nodes with only a dozen of them that are observed?
+network contains thousands of nodes, only a dozen of which are observed?
 The summation quickly becomes _untractable_, and this does not bode well: how
 can you maximize a quantity you cannot even evaluate?
 
