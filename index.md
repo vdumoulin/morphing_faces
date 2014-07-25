@@ -74,6 +74,29 @@ probability distribution encoded by this graph is therefore
                             P(D=d \\mid A=a, B=b)
 \\]
 
+## Learning bayesian networks, and the inference problem
+
+Bayesian networks are interesting by themselves, but what's even more
+interesting is that they can be used to learn something about the distribution
+of the random variables they model. Suppose you are given a set of observations
+\\( \\mathcal{D} \\), and suppose that the conditional distributions required by
+your bayesian network are parametrized by some set of parameters
+\\( \\theta \\). The act of learning the distribution which generated the
+observations could be described as follows: a parametrization of the model that
+approaches the true distribution is a parametrization under which observations
+in \\( \\mathcal{D} \\) have a high probability, or alternatively, a high
+log-probability (because the logarithm is a monotonically increasing function).
+More formally, we are searching \\( \\theta^* \\) such that
+
+\\[
+    \\theta^* = \\arg\\max_{\\theta} \\log P(X_1, \\cdots, X_n)
+              =  \\arg\\max_{\\theta} \\sum_{i=1}^n
+                 \\log P(X_i \\mid \\mathcal{Pa}(X_i))
+\\]
+
+This parameter search can be done by various ways, for instance by gradient
+descent.
+
 ## Variational autoencoders
 
 First introduced by [(Kingma and Welling, 2014)](http://arxiv.org/abs/1312.6114)
