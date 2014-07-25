@@ -89,8 +89,9 @@ log-probability (because the logarithm is a monotonically increasing function).
 More formally, we are searching \\( \\theta^* \\) such that
 
 \\[
-    \\theta^* = \\arg\\max_\\theta \\sum_{i=1}^n
-                \\log P(X_i \\mid \\mathcal{Pa}(X_i))
+    \\theta^* = \\arg\\max\_\\theta \\log P(X\_1, \\cdots, X\_n)
+              = \\arg\\max\_\\theta \\sum\_{i=1}^n
+                \\log P(X\_i \\mid \\mathcal{Pa}(X\_i))
 \\]
 
 This parameter search can be done by various ways, for instance by gradient
