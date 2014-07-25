@@ -23,7 +23,21 @@ __[TODO: finish explanation]__
 * Encoding network has two hidden layers with 2000 rectified linear units each
 * Decoding network has two hidden layers with 2000 rectified linear units each
 * Isotropic gaussian prior distribution:
-  \\[ p(\\mathbf{z}) = \\prod_{i} \\mathcal{N}(z_i \mid 0, 1) \\]
+  \\[
+      p(\\mathbf{z}) = \\prod_{i} \\mathcal{N}(z_i \\mid 0, 1)
+  \\]
+* Isotropic gaussian approximate posterior distribution:
+  \\[
+      q(\\mathbf{z} \\mid \\mathbf{x}) = \\prod_{i}
+          \\mathcal{N}(z_i \\mid \\mu(\\mathbf{x}), \\sigma^2(\\mathbf{x}))
+  \\]
+* Isotropic gaussian conditional distribution:
+  \\[
+      p(\\mathbf{x} \\mid \\mathbf{z}) = \\prod_{i}
+          \\mathcal{N}(x_i \\mid \\mu(\\mathbf{z}), \\sigma^2(\\mathbf{z}))
+  \\]
+* Trained on the unlabel set of images of the
+  [Toronto Face Database](http://aclab.ca/users/josh/TFD.html)
 
 # Installation
 
