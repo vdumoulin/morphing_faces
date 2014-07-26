@@ -2,33 +2,76 @@
 layout: default
 ---
 
+### Table of contents
+
+* [What is Morphing Faces?](#what-is-morphing-faces)
+  + [Installation](#installation)
+  + [Running the demo](#running-the-demo)
+* [How does it work?](#how-does-it-work)
+  + [Probabilistic graphical models and Bayesian networks](#probabilistic-graphical-models-and-bayesian-networks)
+  + [Learning bayesian networks, and the inference problem](#learning-bayesian-networks-and-the-inference-problem)
+  + [Variational autoencoders](#variational-autoencoders)
+    - [Formal setup](#formal-setup)
+    - [The VAE criterion](#the-vae-criterion)
+    - [The reparametrization trick](#the-reparametrization-trick)
+    - [A concrete example](#a-concrete-example)
+    - [Demo model](#demo-model)
+
 # What is Morphing Faces?
 
 Morphing Faces is an interactive Python demo allowing to generate images of
-faces using a trained variational autoencoder.
+faces using a trained variational autoencoder and is a display of the capacity
+of this type of model to capture high-level, abstract concepts.
 
 The program maps a point in 400-dimensional space to an image and displays it on
 screen. The point's position is initialized at random, and its coordinates can
-be varied two dimensions at a time by hovering the mouse over the image.
+be varied two dimensions at a time by hovering the mouse over the image, which
+produces smooth and plausible transitions between different lighting conditions,
+physical features and facial configurations.
 
 # Installation
 
-## Dependencies
-
-In addition to Python, Morphing Faces depends on the following Python packages:
+Installation is as simple as downloading the code uncompressing it wherever you
+want. In addition to Python, Morphing Faces depends on the following Python
+packages:
 
 * [numpy](http://www.numpy.org/)
 * [matplotlib](http://matplotlib.org/)
 
 ## Running the demo
 
-To run the demo, simply download the code and type
+In the `morphing_faces` directory, type
 
 ```
 python visualize.py
 ```
 
-from within the `morphing_faces` directory.
+You should see a matplotlib figure appearing. Now, hover the mouse over the
+picture and the face should transform.
+
+The mouse's relative position in the image is tied to the coordinates of two of
+the 400 dimensions: bottom-left corresponds to (-1, -1) and top-right
+corresponds to (1, 1).
+
+What about other dimensions? 400 is quite a large number, and most of them don't
+do much (this a consequence of the training procedure), but the 29 most
+interesting dimensions are available to try. Simply type `d D1 D2` in the
+command line interface, where `D1` and `D2` are two numbers between 0 and 28, in
+order to select dimensions `D1` and `D2` to experiment with.
+
+Maybe by now you found a way to create a funny facial expression and you would
+like to keep it that way while you play with other dimensions. In that case,
+click on the image to freeze it, change the selected dimensions and click the
+image again to unfreeze it. The coordinates in the two previous dimensions will
+be kept frozen, while you can interact with the newly selected dimensions.
+
+If you're bored with the current face and would like to see something else, type
+`r` in the command line interface to pick another face at random. Behind the
+scenes, a new point in the 400-dimensional space was chosen, and you can
+move around it the usual way.
+
+Finally, when you've had enough, simply type `q` in the command line interface
+to quit.
 
 # How does it work?
 
@@ -106,7 +149,7 @@ all we're really interested in is to maximize the likelihood of \\( C \\) and
 \\( D \\) under the model, i.e. maximize
 
 \\[
-    P(C=c, D=d) = \\sum\_{a}\\sum\_{b} P(A=a, B=b, C=c, D=d)
+    P(C, D) = \\sum\_{A}\\sum\_{B} P(A, B, C, D)
 \\]
 
 Now things get hairy. What if \\( A \\) and \\( B \\) can take a great number of
