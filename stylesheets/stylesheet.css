@@ -149,8 +149,9 @@ img {
 }
 
 p img {
-  display: inline;
-  margin: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0;
   vertical-align: middle;
   text-align: center;
