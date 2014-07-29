@@ -2,6 +2,12 @@
 layout: default
 ---
 
+<table style="width:300px">
+<tr id="labels"></tr>
+<tr id="sliders"></tr>
+</table>
+<img id="face" src="a.png" alt="face" width=200 />
+
 ### Table of contents
 
 * [What is Morphing Faces?](#what-is-morphing-faces)
