@@ -31,7 +31,8 @@ if __name__ == "__main__":
     while True:
         Z = morpher.get_Z()
         dimension = morpher.index_mapping[numpy.random.choice(29)]
-        delta = numpy.random.normal(scale=0.5)
+        delta = 0.5 * numpy.random.choice([-1, 1])
+        # delta = numpy.random.normal(scale=0.5)
         Z[dimension] = Z[dimension] + delta
         morpher.set_Z(Z)
         im.set_array(morpher.generate_face())
