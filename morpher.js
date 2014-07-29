@@ -24,10 +24,9 @@ MORPHER : Generates images of faces using a variational autoencoder (VAE) to map
           Those that carry information (29 of them) can be used to vary the
           coordinates of Z.
 -----------------------------------------------------------------------------*/
-function Morpher (on_parameters_ready_fn) {
-    // Number of parameters still loading
-    this._params_loading = 0;
-    this._on_parameters_ready = on_parameters_ready_fn;
+function Morpher () {
+    // Number of parameters loaded
+    this._params_loaded = 0;
     // If true, ignore requests to change the coordinates of Z
     this.freeze_coordinates = false;
     // Dimensions along which coordinates of Z will vary
@@ -113,6 +112,12 @@ Morpher.prototype.set_coordinates = function(x, y) {
     }
 };
 
+Morpher.prototype.set_one_coordinate = function(i, z) {
+    if(!this.freeze_coordinates) {
+        this.Z[index_mapping[i]] = z;
+    }
+};
+
 /*-----------------------------------------------------------------------------
 MORPHER.generate_face : Maps the point Z in latent space to a 48 x 48 pixels
                         face image
@@ -149,22 +154,14 @@ Morpher.prototype.infer_Z = function(X) {
     // return Z
 };
 
-Morpher.prototype._start_loading = function() {
-    this._params_loading += 1;
-};
-
-Morpher.prototype._done_loading = function() {
-    this._params_loading -= 1;
-    if (this._params_loading == 0) {
-        this._on_parameters_ready(this);
-    }
+Morpher.prototype.ready = function() {
+    return this._params_loaded == 6;
 };
 
 /*-----------------------------------------------------------------------------
 MORPHER._load : Loads a parameter array by file name
 -----------------------------------------------------------------------------*/
 Morpher.prototype._load = function(filename, length, M, N) {
-    this._start_loading();
     var array = [];
     var oReq = new XMLHttpRequest();
     oReq.open("GET", filename, true);
@@ -191,7 +188,7 @@ Morpher.prototype._load = function(filename, length, M, N) {
                 }
             }
             console.log('Done loading ' + filename);
-            morpher._done_loading();
+            morpher._params_loaded += 1 ;
         }
     };
 
