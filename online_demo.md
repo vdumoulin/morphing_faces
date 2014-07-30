@@ -64,6 +64,7 @@ function load (filename, length, M, N, callback) {
 };
 
 $(function() {
+    Z = morpher.get_Z();
     for(index in index_mapping) {
         var line = (index < 29 / 2)? 1 : 2;
         name = "slider_" + index;
@@ -73,7 +74,7 @@ $(function() {
             orientation: "vertical",
             range: "min",
             max: 100,
-            value: 50,
+            value: (Z[0][index_mapping[index]] + 1) * 50,
             slide: slidersChanged,
         });
     }
