@@ -96,6 +96,9 @@ $(function() {
 
 # Online Demo
 
+__The online demo needs to load around 35 MB's worth of model parameters,
+which might take some time depending on your connection speed.__
+
 <p><img id="face" src="images/loader.gif" alt="face" width="120" /></p>
 
 <center>
