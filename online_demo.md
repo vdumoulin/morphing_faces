@@ -25,7 +25,7 @@ function setZ() {
     if (morpher.ready()) {
         for(index in index_mapping) {
             var s_i = $("#slider_" + index).slider("value") / 50.0 - 1.0;
-            morpher.set_one_coordinate(index, s_i);
+            morpher.set_coordinate(index, s_i);
         }
     }
 }
@@ -58,7 +58,7 @@ $(function() {
            morpher.shuffle();
            Z = morpher.get_Z();
            for(index in index_mapping) {
-               $("#slider_" + index).slider("value", (Z[index_mapping[index]] + 1) * 50);
+               $("#slider_" + index).slider("value", (Z[0][index_mapping[index]] + 1) * 50);
            }
            refreshImage();
         }
