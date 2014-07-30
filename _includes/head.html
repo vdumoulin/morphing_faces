@@ -8,48 +8,6 @@
         <title>{{ site.project_title }}</title>
         <!-- MathJax -->
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
-
-        <!-- Javascript demo -->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-        <script src="http://www.numericjs.com/lib/numeric-1.2.6.min.js"></script>
-        <!-- <script src="numeric-1.2.6.min.js" type="text/javascript"></script> -->
-        <script src="morpher.js" type="text/javascript"></script>
-
-        <script language="JavaScript">
-
-        morpher = new Morpher();
-
-        function refreshImage() {
-            if (morpher.ready()) {
-                for(index in index_mapping) {
-                    var s_i = $("#slider_" + index).slider("value") / 50.0 - 1.0;
-                    morpher.set_one_coordinate(index, s_i);
-                }
-
-                var sample = morpher.generate_face();
-                image = document.getElementById('face');
-                image.src = numeric.imageURL(numeric.mul([sample, sample, sample], 255));
-            }
-        }
-
-        $(function() {
-            for(index in index_mapping) {
-                name = "slider_" + index;
-                $("#labels").append("<td><div>" + index + "</div></td>");
-                $("#sliders").append("<td><div id='" + name + "'></div></td>");
-                $("#" + name).slider({
-                    orientation: "vertical",
-                    range: "min",
-                    max: 100,
-                    value: 50,
-                    slide: refreshImage,
-                    change: refreshImage
-                });
-            }
-        });
-        </script>
     </head>
 
     <body>
