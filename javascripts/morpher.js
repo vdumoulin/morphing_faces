@@ -24,9 +24,6 @@ MORPHER : Generates images of faces using a variational autoencoder (VAE) to map
 function Morpher () {
     // Number of parameters loaded
     this._params_loaded = 0;
-    // Dimensions along which coordinates of Z will vary
-    this.dimension_0 = index_mapping[28];
-    this.dimension_1 = index_mapping[11];
     // Point in latent space, selected at random to begin with
     this.Z = this.sample_Z();
     // Model parameters
@@ -37,12 +34,14 @@ function Morpher () {
     this.weights = [];
     this.biases = [];
     for(var i=0; i<sizes.length - 1; i++) {
+        morpher = this;
         this.weights.push(
-            this._load("data/d_W_" + i + ".bin", sizes[i] * sizes[i + 1],
-                       sizes[i + 1], sizes[i])
+            load("data/d_W_" + i + ".bin", sizes[i] * sizes[i + 1],
+                 sizes[i + 1], sizes[i], function(){morpher._params_loaded += 1;})
         );
         this.biases.push(
-            this._load("data/d_b_" + i + ".bin", sizes[i], 1, sizes[i])
+            load("data/d_b_" + i + ".bin", sizes[i], 1, sizes[i],
+                 function(){morpher._params_loaded += 1;})
         );
     }
 }
@@ -60,16 +59,6 @@ MORPHER.shuffle : Resamples a new Z
 -----------------------------------------------------------------------------*/
 Morpher.prototype.shuffle = function() {
     this.Z = this.sample_Z();
-};
-
-/*-----------------------------------------------------------------------------
-MORPHER.select_dimensions : Selects the two dimensions in Z along which
-                            coordinates will vary
------------------------------------------------------------------------------*/
-Morpher.prototype.select_dimensions = function(d_0, d_1) {
-    // TODO: error handling
-    this.dimension_0 = index_mapping[d_0];
-    this.dimension_1 = index_mapping[d_1];
 };
 
 /*-----------------------------------------------------------------------------
@@ -120,36 +109,4 @@ Morpher.prototype.generate_face = function() {
 
 Morpher.prototype.ready = function() {
     return this._params_loaded == 6;
-};
-
-/*-----------------------------------------------------------------------------
-MORPHER._load : Loads a parameter array by file name
------------------------------------------------------------------------------*/
-Morpher.prototype._load = function(filename, length, M, N) {
-    var array = [];
-    var oReq = new XMLHttpRequest();
-    oReq.open("GET", filename, true);
-    oReq.responseType = "arraybuffer";
-
-    var morpher = this;
-
-    oReq.onload = function (oEvent) {
-        var arrayBuffer = oReq.response; // Note: not oReq.responseText
-        if (arrayBuffer) {
-            var float32Array = new Float32Array(arrayBuffer);
-            for (var i=0; i<M; i++) {
-                row = [];
-                for(var j=0; j<N; j++) {
-                    row.push(float32Array[(N * i) + j]);
-                }
-                array.push(row);
-            }
-            console.log('Done loading ' + filename);
-            morpher._params_loaded += 1 ;
-        }
-    };
-
-    oReq.send(null);
-
-    return array;
 };

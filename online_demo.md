@@ -35,6 +35,34 @@ function slidersChanged() {
     refreshImage();
 }
 
+function load (filename, length, M, N, callback) {
+    var array = [];
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", filename, true);
+    oReq.responseType = "arraybuffer";
+
+    oReq.onload = function (oEvent) {
+        var arrayBuffer = oReq.response; // Note: not oReq.responseText
+        if (arrayBuffer) {
+            var float32Array = new Float32Array(arrayBuffer);
+            for (var i=0; i<M; i++) {
+                row = [];
+                for(var j=0; j<N; j++) {
+                    row.push(float32Array[(N * i) + j]);
+                }
+                array.push(row);
+            }
+            console.log('Done loading ' + filename);
+            callback();
+            refreshImage();
+        }
+    };
+
+    oReq.send(null);
+
+    return array;
+};
+
 $(function() {
     for(index in index_mapping) {
         var line = (index < 29 / 2)? 1 : 2;
@@ -68,13 +96,17 @@ $(function() {
 
 # Online Demo
 
-<img id="face" src="images/loader.gif" alt="face" width="200" />
+<p><img id="face" src="images/loader.gif" alt="face" width="120" /></p>
 
-<div id="randombutton"></div>
+<center>
 
-<table style="width:300px">
+<p><div id="randombutton"></div></p>
+
+<p><table style="width:300px">
 <tr id="labels1"></tr>
 <tr id="sliders1"></tr>
 <tr id="labels2"></tr>
 <tr id="sliders2"></tr>
-</table>
+</table></p>
+
+</center>
