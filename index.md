@@ -209,7 +209,7 @@ log-likelihood of \\( \\mathbf{x} \\):
 
 \\[
     \\mathcal{L}(\\mathbf{x}) =
-    - D\_{KL}(q\_\\phi(\\mathbf{z} \\mid \\mathbf{x} \\mid\\mid
+    - D\_{KL}(q\_\\phi(\\mathbf{z} \\mid \\mathbf{x}) \\mid\\mid
               p\_\\theta(\\mathbf{z}))
     + \\mathrm{E}\_{q\_\\phi(\\mathbf{z} \\mid \\mathbf{x})}
       [\\log p\_\\theta(\\mathbf{x} \\mid \\mathbf{z})]
