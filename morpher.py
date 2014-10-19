@@ -1,4 +1,8 @@
 import numpy
+import theano
+import theano.tensor as T
+from pylearn2.utils import serial
+from pylearn2.config import yaml_parse
 
 numpy.random.seed(112387)
 
@@ -153,7 +157,7 @@ class MorpherFromModel(object):
         self.model = serial.load(model_path)
         dataset_yaml_src = self.model.dataset_yaml_src
         dataset = yaml_parse.load(dataset_yaml_src)
-        numpy_X = as_floatX(dataset.get_design_matrix())[:10000]
+        numpy_X = as_floatX(dataset.get_design_matrix())[:100]
 
         X = T.matrix('X')
         phi = self.model.encode_phi(X)

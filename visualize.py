@@ -6,13 +6,14 @@ Dependends on:
     * numpy 1.7
     * matplotlib
 """
-from morpher import Morpher
+from morpher import Morpher, MorpherFromModel
 from matplotlib import pyplot
 
 
 if __name__ == "__main__":
     # Initialize face generator
-    morpher = Morpher()
+    # morpher = Morpher()
+    morpher = MorpherFromModel("/Users/vdumoulin/test_best.pkl")
 
     # Make sure I/O doesn't hang when displaying the image
     pyplot.ion()
@@ -26,8 +27,10 @@ if __name__ == "__main__":
 
     def onmove(event):
         width, height = fig.canvas.get_width_height()
-        x = 2 * event.x / float(width) - 1
-        y = 2 * event.y / float(height) - 1
+        # x = 2 * event.x / float(width) - 1
+        # y = 2 * event.y / float(height) - 1
+        x = event.x / float(width)
+        y = event.y / float(height)
         morpher.set_coordinates(x, y)
         im.set_array(morpher.generate_face())
         pyplot.draw()
