@@ -183,8 +183,7 @@ Let \\( \\mathbf{x} \\) be a random vector of \\( D \\) observed variables,
 which are either discrete or continuous. Let \\( \\mathbf{z} \\) be a random
 vector of \\( N \\) latent variables, which are __continuous__. Let the
 relationships between \\( \\mathbf{x} \\) and \\( \\mathbf{z} \\) be described
-by the figure below (using
-[plate notation](http://en.wikipedia.org/w/index.php?title=Plate_notation))
+by the figure below:
 
 ![The DAG learned by a VAE]({{ site.github.url }}/images/vae_generative_network_figure.png)
 
